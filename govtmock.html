@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GovtPrep Hub</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#172033;
+    transition:.3s;
+}
+
+body.dark{
+    background:#111827;
+    color:white;
+}
+
+header{
+    background:linear-gradient(135deg,#0b3d91,#1769e0);
+    color:white;
+    padding:15px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 4px 20px #0002;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#ffd43b;
+}
+
+nav button{
+    background:none;
+    border:0;
+    color:white;
+    margin-left:10px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.page{
+    width:88%;
+    max-width:1300px;
+    margin:auto;
+}
+
+.hero{
+    min-height:500px;
+    padding:60px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:linear-gradient(135deg,#eaf2ff,#fff);
+}
+
+.dark .hero{
+    background:#1f2937;
+}
+
+.hero-text{
+    max-width:650px;
+}
+
+.hero h1{
+    font-size:50px;
+    line-height:1.1;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#1769e0;
+}
+
+.hero p{
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.primary-btn{
+    background:#1769e0;
+    color:white;
+    border:0;
+    padding:13px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    margin:5px;
+}
+
+.primary-btn:hover{
+    background:#0b3d91;
+}
+
+.profile{
+    text-align:center;
+}
+
+.profile img{
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    object-fit:cover;
+    border:6px solid white;
+    box-shadow:0 10px 30px #0003;
+    background:#dbeafe;
+}
+
+.profile h2{
+    margin-top:12px;
+    color:#1769e0;
+}
+
+.profile input{
+    margin-top:15px;
+    width:220px;
+}
+
+.section{
+    padding:40px 0;
+}
+
+.section-title{
+    font-size:30px;
+    margin-bottom:20px;
+}
+
+.search{
+    width:100%;
+    padding:15px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    margin-bottom:25px;
+    font-size:16px;
+}
+
+.exam-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.exam-card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px #00000012;
+    transition:.25s;
+}
+
+.dark .exam-card,
+.dark .stat-card,
+.dark .panel,
+.dark .result-card{
+    background:#1f2937;
+    color:white;
+}
+
+.exam-card:hover{
+    transform:translateY(-6px);
+}
+
+.exam-icon{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.exam-card h3{
+    margin-bottom:8px;
+}
+
+.exam-card p{
+    color:#6b7280;
+    margin-bottom:15px;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+
+.stat-card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 5px 20px #00000012;
+}
+
+.stat-card h2{
+    font-size:32px;
+    color:#1769e0;
+    margin-bottom:5px;
+}
+
+.stat-card p{
+    color:#6b7280;
+}
+
+.dashboard{
+    display:none;
+}
+
+.dashboard-nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.dashboard-nav button{
+    border:0;
+    background:#1769e0;
+    color:white;
+    padding:11px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.panel{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px #00000012;
+    margin-bottom:20px;
+}
+
+.progress-bar{
+    width:100%;
+    height:20px;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+    margin:12px 0;
+}
+
+.progress-fill{
+    height:100%;
+    background:#1769e0;
+    width:0%;
+    transition:.5s;
+}
+
+.subject-row{
+    margin:20px 0;
+}
+
+.subject-top{
+    display:flex;
+    justify-content:space-between;
+}
+
+.test-page{
+    display:none;
+    padding:35px 0;
+}
+
+.test-header{
+    background:#1769e0;
+    color:white;
+    padding:18px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.timer{
+    background:#111827;
+    padding:10px 16px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.question-box{
+    background:white;
+    padding:30px;
+    margin-top:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px #0002;
+}
+
+.dark .question-box{
+    background:#1f2937;
+}
+
+.question-number{
+    color:#1769e0;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.question{
+    font-size:22px;
+    margin-bottom:25px;
+}
+
+.option{
+    padding:15px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    margin:10px 0;
+    cursor:pointer;
+}
+
+.option:hover{
+    border-color:#1769e0;
+}
+
+.option.selected{
+    background:#1769e0;
+    color:white;
+    border-color:#1769e0;
+}
+
+.controls{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:25px;
+}
+
+.control-btn{
+    border:0;
+    padding:12px 18px;
+    border-radius:8px;
+    color:white;
+    background:#1769e0;
+    cursor:pointer;
+}
+
+.review{
+    background:#f59e0b;
+}
+
+.submit{
+    background:#16a34a;
+}
+
+.result-page{
+    display:none;
+    padding:50px 0;
+}
+
+.result-card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 30px #0002;
+}
+
+.score{
+    font-size:70px;
+    font-weight:bold;
+    color:#1769e0;
+    margin:20px;
+}
+
+.result-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:15px;
+    margin:30px 0;
+}
+
+.result-stat{
+    background:#eef5ff;
+    padding:20px;
+    border-radius:12px;
+}
+
+.result-stat h2{
+    color:#1769e0;
+}
+
+.chance{
+    padding:25px;
+    border-radius:15px;
+    margin:25px 0;
+    background:#eef5ff;
+}
+
+.chance h2{
+    font-size:32px;
+    color:#1769e0;
+}
+
+.history-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+.history-table th,
+.history-table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+footer{
+    background:#0f172a;
+    color:white;
+    padding:35px;
+    text-align:center;
+    margin-top:40px;
+}
+
+@media(max-width:750px){
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        gap:40px;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    header{
+        padding:15px 3%;
+    }
+
+    nav button{
+        font-size:12px;
+        margin-left:4px;
+    }
+
+    .test-header{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+Govt<span>Prep</span> Hub
+</div>
+
+<nav>
+<button onclick="home()">Home</button>
+<button onclick="showDashboard()">📊 Progress</button>
+<button onclick="showExams()">Exams</button>
+<button onclick="toggleDark()">🌙</button>
+</nav>
+
+</header>
+
+
+<!-- HOME -->
+
+<div id="homePage">
+
+<section class="hero">
+
+<div class="hero-text">
+
+<h1>
+Prepare Smart.<br>
+Crack Your <span>Dream Exam.</span>
+</h1>
+
+<p>
+One platform for Government and Competitive Exam
+Mock Tests. Practice, analyze your performance,
+track your progress and improve every day.
+</p>
+
+<button class="primary-btn" onclick="showExams()">
+🚀 Start Mock Test
+</button>
+
+<button class="primary-btn" onclick="showDashboard()">
+📊 My Progress
+</button>
+
+</div>
+
+
+<div class="profile">
+
+<img id="profileImage"
+src="https://via.placeholder.com/190">
+
+<h2>GovtPrep Hub</h2>
+
+<p>Government Exam Preparation</p>
+
+<input type="file"
+accept="image/*"
+onchange="uploadPhoto(event)">
+
+</div>
+
+</section>
+
+
+<div class="page">
+
+<section class="section">
+
+<h2 class="section-title">
+Your Dashboard
+</h2>
+
+<div class="stats-grid">
+
+<div class="stat-card">
+<h2 id="homeTests">0</h2>
+<p>Tests Taken</p>
+</div>
+
+<div class="stat-card">
+<h2 id="homeBest">0%</h2>
+<p>Best Score</p>
+</div>
+
+<div class="stat-card">
+<h2 id="homeAverage">0%</h2>
+<p>Average Score</p>
+</div>
+
+<div class="stat-card">
+<h2 id="homeAccuracy">0%</h2>
+<p>Accuracy</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="section" id="examSection">
+
+<h2 class="section-title">
+🎯 Choose Your Exam
+</h2>
+
+<input
+class="search"
+id="search"
+placeholder="🔎 Search SSC, Bank, RRB, NDA, NEET..."
+onkeyup="searchExam()"
+>
+
+
+<div class="exam-grid">
+
+
+<div class="exam-card"
+data-name="banking sbi ibps rrb rbi">
+
+<div class="exam-icon">🏦</div>
+
+<h3>Banking Exams</h3>
+
+<p>SBI • IBPS • RRB • RBI</p>
+
+<button class="primary-btn"
+onclick="startTest('Banking')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="ssc cgl chsl gd cpo mts">
+
+<div class="exam-icon">📚</div>
+
+<h3>SSC Exams</h3>
+
+<p>CGL • CHSL • GD • CPO • MTS</p>
+
+<button class="primary-btn"
+onclick="startTest('SSC')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="railway rrb ntpc group d alp">
+
+<div class="exam-icon">🚆</div>
+
+<h3>Railway Exams</h3>
+
+<p>RRB • NTPC • Group D • ALP</p>
+
+<button class="primary-btn"
+onclick="startTest('Railway')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="police bihar jharkhand west bengal up">
+
+<div class="exam-icon">👮</div>
+
+<h3>State Police</h3>
+
+<p>Police exams of different states</p>
+
+<button class="primary-btn"
+onclick="startTest('Police')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="nda cds capf defence">
+
+<div class="exam-icon">🪖</div>
+
+<h3>Defence</h3>
+
+<p>NDA • CDS • CAPF</p>
+
+<button class="primary-btn"
+onclick="startTest('Defence')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="neet medical">
+
+<div class="exam-icon">🧑‍⚕️</div>
+
+<h3>NEET</h3>
+
+<p>Physics • Chemistry • Biology</p>
+
+<button class="primary-btn"
+onclick="startTest('NEET')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="jee engineering">
+
+<div class="exam-icon">🧑‍💻</div>
+
+<h3>JEE</h3>
+
+<p>Physics • Chemistry • Mathematics</p>
+
+<button class="primary-btn"
+onclick="startTest('JEE')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="ca chartered accountant">
+
+<div class="exam-icon">📊</div>
+
+<h3>CA</h3>
+
+<p>Accounts • Law • Economics</p>
+
+<button class="primary-btn"
+onclick="startTest('CA')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="llb law clat">
+
+<div class="exam-icon">⚖️</div>
+
+<h3>LLB / Law</h3>
+
+<p>Law • GK • Reasoning</p>
+
+<button class="primary-btn"
+onclick="startTest('LLB')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="group a group b group c group d">
+
+<div class="exam-icon">🏛️</div>
+
+<h3>Group A/B/C/D</h3>
+
+<p>Government Recruitment</p>
+
+<button class="primary-btn"
+onclick="startTest('Groups')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="clerk typist">
+
+<div class="exam-icon">⌨️</div>
+
+<h3>Clerk / Typist</h3>
+
+<p>Typing • GK • Reasoning</p>
+
+<button class="primary-btn"
+onclick="startTest('Clerk')">
+Start Test
+</button>
+
+</div>
+
+
+<div class="exam-card"
+data-name="gk current affairs">
+
+<div class="exam-icon">🌎</div>
+
+<h3>GK & Current Affairs</h3>
+
+<p>India • World • Current Affairs</p>
+
+<button class="primary-btn"
+onclick="startTest('GK')">
+Start Test
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="page dashboard">
+
+<section class="section">
+
+<h1>📊 My Preparation Dashboard</h1>
+
+<p style="margin:10px 0 25px;">
+Track your performance and preparation.
+</p>
+
+<div class="dashboard-nav">
+
+<button onclick="showDashboard()">Overview</button>
+
+<button onclick="showHistory()">Test History</button>
+
+<button onclick="showProgress()">Progress</button>
+
+<button onclick="showSelection()">Selection Chance</button>
+
+</div>
+
+
+<div id="dashboardContent">
+
+<div class="stats-grid">
+
+<div class="stat-card">
+<h2 id="dashTests">0</h2>
+<p>Tests Taken</p>
+</div>
+
+<div class="stat-card">
+<h2 id="dashBest">0%</h2>
+<p>Best Score</p>
+</div>
+
+<div class="stat-card">
+<h2 id="dashAvg">0%</h2>
+<p>Average Score</p>
+</div>
+
+<div class="stat-card">
+<h2 id="dashAcc">0%</h2>
+<p>Accuracy</p>
+</div>
+
+</div>
+
+<br>
+
+<div class="panel">
+
+<h2>📈 Overall Progress</h2>
+
+<div class="subject-row">
+
+<div class="subject-top">
+
+<span>Preparation Level</span>
+
+<b id="prepText">0%</b>
+
+</div>
+
+<div class="progress-bar">
+
+<div class="progress-fill"
+id="prepBar">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<!-- TEST -->
+
+<div id="testPage" class="page test-page">
+
+<div class="test-header">
+
+<div>
+
+<h2 id="testTitle">
+Mock Test
+</h2>
+
+<p id="progress">
+Question 1
+</p>
+
+</div>
+
+<div class="timer" id="timer">
+05:00
+</div>
+
+</div>
+
+
+<div class="question-box">
+
+<div class="question-number"
+id="questionNumber">
+Question 1
+</div>
+
+<div class="question"
+id="question">
+Question
+</div>
+
+<div id="options"></div>
+
+
+<div class="controls">
+
+<button class="control-btn"
+onclick="previousQuestion()">
+← Previous
+</button>
+
+<button class="control-btn review"
+onclick="markReview()">
+🚩 Review
+</button>
+
+<button class="control-btn"
+onclick="nextQuestion()">
+Next →
+</button>
+
+<button class="control-btn submit"
+onclick="submitTest()">
+Submit
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div id="resultPage" class="page result-page">
+
+<div class="result-card">
+
+<h1>🎉 Test Completed!</h1>
+
+<div class="score"
+id="finalScore">
+0%
+</div>
+
+<h2 id="resultMessage">
+Keep Practicing!
+</h2>
+
+
+<div class="result-grid">
+
+<div class="result-stat">
+<h2 id="correctAnswers">0</h2>
+<p>Correct</p>
+</div>
+
+<div class="result-stat">
+<h2 id="wrongAnswers">0</h2>
+<p>Wrong</p>
+</div>
+
+<div class="result-stat">
+<h2 id="skippedAnswers">0</h2>
+<p>Skipped</p>
+</div>
+
+<div class="result-stat">
+<h2 id="resultAccuracy">0%</h2>
+<p>Accuracy</p>
+</div>
+
+</div>
+
+
+<div class="chance">
+
+<p>Estimated Selection Chance</p>
+
+<h2 id="selectionChance">
+0%
+</h2>
+
+<p id="selectionText">
+Complete more tests to get a better estimate.
+</p>
+
+</div>
+
+
+<button class="primary-btn"
+onclick="showDashboard()">
+📊 View Progress
+</button>
+
+<button class="primary-btn"
+onclick="showExams()">
+🏠 More Tests
+</button>
+
+</div>
+
+</div>
+
+
+<footer>
+
+<h2>GovtPrep Hub</h2>
+
+<p>
+Practice • Progress • Perform • Succeed
+</p>
+
+<br>
+
+<p>
+© 2026 GovtPrep Hub
+</p>
+
+</footer>
+
+
+<script>
+
+
+/* =========================
+   QUESTIONS
+========================= */
+
+const questions = {
+
+Banking:[
+{
+q:"Which bank is the central bank of India?",
+options:["SBI","RBI","PNB","BOI"],
+answer:1
+},
+{
+q:"ATM stands for?",
+options:[
+"Automatic Transfer Machine",
+"Automated Teller Machine",
+"Auto Transaction Machine",
+"Any Time Money"
+],
+answer:1
+},
+{
+q:"SBI stands for?",
+options:[
+"State Bank of India",
+"State Banking Institution",
+"System Bank India",
+"State Business India"
+],
+answer:0
+},
+{
+q:"IBPS stands for?",
+options:[
+"Indian Banking Public Service",
+"Institute of Banking Personnel Selection",
+"Indian Bank Personnel System",
+"Institute of Public Banking"
+],
+answer:1
+},
+{
+q:"Which is a public sector bank?",
+options:[
+"HDFC Bank",
+"ICICI Bank",
+"State Bank of India",
+"Axis Bank"
+],
+answer:2
+}
+],
+
+SSC:[
+{
+q:"SSC stands for?",
+options:[
+"Staff Selection Commission",
+"State Service Commission",
+"Staff Service Council",
+"Special Selection Committee"
+],
+answer:0
+},
+{
+q:"Which exam is conducted by SSC?",
+options:[
+"CGL",
+"JEE",
+"NEET",
+"NDA"
+],
+answer:0
+},
+{
+q:"CGL stands for?",
+options:[
+"Combined Graduate Level",
+"Central Graduate Law",
+"Combined Government Level",
+"Central General Level"
+],
+answer:0
+},
+{
+q:"SSC GD is mainly related to?",
+options:[
+"Banking",
+"Defence and paramilitary recruitment",
+"Engineering",
+"Medicine"
+],
+answer:1
+},
+{
+q:"SSC headquarters is located in?",
+options:[
+"New Delhi",
+"Mumbai",
+"Kolkata",
+"Chennai"
+],
+answer:0
+}
+],
+
+Railway:[
+{
+q:"RRB stands for?",
+options:[
+"Railway Recruitment Board",
+"Railway Reservation Board",
+"Railway Regional Bureau",
+"Railway Recruitment Bureau"
+],
+answer:0
+},
+{
+q:"Indian Railways comes under?",
+options:[
+"Ministry of Transport",
+"Ministry of Railways",
+"Ministry of Home Affairs",
+"Ministry of Defence"
+],
+answer:1
+},
+{
+q:"NTPC stands for?",
+options:[
+"National Thermal Power Corporation",
+"National Train Passenger Corporation",
+"New Transport Passenger Corporation",
+"National Track Planning Corporation"
+],
+answer:0
+},
+{
+q:"Which is a railway recruitment exam?",
+options:[
+"RRB NTPC",
+"NEET",
+"CLAT",
+"CAT"
+],
+answer:0
+},
+{
+q:"Group D recruitment is associated with?",
+options:[
+"Railways",
+"Banking",
+"Medical",
+"Law"
+],
+answer:0
+}
+],
+
+Police:[
+{
+q:"FIR stands for?",
+options:[
+"First Information Report",
+"Final Investigation Report",
+"First Investigation Record",
+"Formal Information Record"
+],
+answer:0
+},
+{
+q:"IPS stands for?",
+options:[
+"Indian Police Service",
+"Indian Public Service",
+"Indian Protection Service",
+"Internal Police Service"
+],
+answer:0
+},
+{
+q:"Police mainly maintains?",
+options:[
+"Law and order",
+"Bank accounts",
+"Railway tickets",
+"Hospital records"
+],
+answer:0
+},
+{
+q:"Police recruitment normally includes?",
+options:[
+"Physical and written tests",
+"Only cooking",
+"Only banking",
+"Only medical treatment"
+],
+answer:0
+},
+{
+q:"Police is primarily a subject under?",
+options:[
+"State List",
+"Union List only",
+"Foreign List",
+"None"
+],
+answer:0
+}
+],
+
+Defence:[
+{
+q:"NDA stands for?",
+options:[
+"National Defence Academy",
+"National Development Academy",
+"Naval Defence Academy",
+"National Defence Association"
+],
+answer:0
+},
+{
+q:"CDS stands for?",
+options:[
+"Combined Defence Services",
+"Central Defence Service",
+"Combined Development Service",
+"Chief Defence Service"
+],
+answer:0
+},
+{
+q:"Which force protects India's maritime borders?",
+options:[
+"Army",
+"Navy",
+"Police",
+"BSF"
+],
+answer:1
+},
+{
+q:"IAF stands for?",
+options:[
+"Indian Air Force",
+"Indian Army Force",
+"International Air Force",
+"Indian Armed Federation"
+],
+answer:0
+},
+{
+q:"NDA examination is associated with?",
+options:[
+"Defence services",
+"Banking",
+"Medicine",
+"Law"
+],
+answer:0
+}
+],
+
+NEET:[
+{
+q:"Which organ pumps blood?",
+options:["Lungs","Heart","Kidney","Liver"],
+answer:1
+},
+{
+q:"Basic unit of life?",
+options:["Tissue","Cell","Organ","Atom"],
+answer:1
+},
+{
+q:"Gas required for respiration?",
+options:["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"],
+answer:1
+},
+{
+q:"DNA stands for?",
+options:[
+"Deoxyribonucleic Acid",
+"Dynamic Nuclear Acid",
+"Deoxynitrogen Acid",
+"Double Nuclear Acid"
+],
+answer:0
+},
+{
+q:"Which vitamin is associated with sunlight exposure?",
+options:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"],
+answer:3
+}
+],
+
+JEE:[
+{
+q:"SI unit of force?",
+options:["Joule","Newton","Watt","Pascal"],
+answer:1
+},
+{
+q:"Acceleration is rate of change of?",
+options:["Distance","Velocity","Mass","Time"],
+answer:1
+},
+{
+q:"Approximate value of π?",
+options:["2.14","3.14","4.14","1.14"],
+answer:1
+},
+{
+q:"H2O is?",
+options:["Oxygen","Hydrogen","Water","Carbon dioxide"],
+answer:2
+},
+{
+q:"Square of 12?",
+options:["124","144","154","164"],
+answer:1
+}
+],
+
+CA:[
+{
+q:"CA stands for?",
+options:[
+"Chartered Accountant",
+"Certified Auditor",
+"Central Accountant",
+"Company Auditor"
+],
+answer:0
+},
+{
+q:"Accounting equation is?",
+options:[
+"Assets = Liabilities + Capital",
+"Assets = Capital - Liabilities",
+"Capital = Assets + Liabilities",
+"Assets = Revenue"
+],
+answer:0
+},
+{
+q:"Balance sheet shows?",
+options:[
+"Financial position",
+"Only sales",
+"Only expenses",
+"Only profit"
+],
+answer:0
+},
+{
+q:"Debit and credit are fundamental to?",
+options:[
+"Accounting",
+"Physics",
+"Biology",
+"Chemistry"
+],
+answer:0
+},
+{
+q:"Profit equals?",
+options:[
+"Revenue - Expenses",
+"Expenses - Revenue",
+"Assets - Sales",
+"Capital - Revenue"
+],
+answer:0
+}
+],
+
+LLB:[
+{
+q:"The Constitution of India came into effect on?",
+options:[
+"15 August 1947",
+"26 January 1950",
+"26 November 1949",
+"2 October 1950"
+],
+answer:1
+},
+{
+q:"Who is the head of the Indian judiciary?",
+options:[
+"Chief Justice of India",
+"Prime Minister",
+"President",
+"Attorney General"
+],
+answer:0
+},
+{
+q:"A lawyer represents a client in?",
+options:[
+"Court",
+"Bank only",
+"Hospital only",
+"School only"
+],
+answer:0
+},
+{
+q:"Law generally consists of?",
+options:[
+"Rules recognized and enforced by authority",
+"Only advice",
+"Only personal opinions",
+"Only customs"
+],
+answer:0
+},
+{
+q:"CLAT is associated mainly with?",
+options:[
+"Law admissions",
+"Banking",
+"Medicine",
+"Railways"
+],
+answer:0
+}
+],
+
+Groups:[
+{
+q:"Group A jobs generally include?",
+options:[
+"Higher-level administrative posts",
+"Only typing jobs",
+"Only private jobs",
+"Only manual jobs"
+],
+answer:0
+},
+{
+q:"Group D jobs generally include?",
+options:[
+"Support-level government posts",
+"Senior judicial posts",
+"Bank managers",
+"Doctors"
+],
+answer:0
+},
+{
+q:"UPSC is associated with?",
+options:[
+"Union-level recruitment",
+"Railway ticket booking",
+"Private companies",
+"Sports"
+],
+answer:0
+},
+{
+q:"PSC stands for?",
+options:[
+"Public Service Commission",
+"Police Service Centre",
+"Public Selection Council",
+"Private Service Commission"
+],
+answer:0
+},
+{
+q:"Government recruitment exams usually test?",
+options:[
+"Knowledge and aptitude",
+"Only singing",
+"Only cooking",
+"Only driving"
+],
+answer:0
+}
+],
+
+Clerk:[
+{
+q:"Typing speed is especially important for?",
+options:[
+"Typist jobs",
+"Doctor jobs",
+"Pilot jobs",
+"Farmer jobs"
+],
+answer:0
+},
+{
+q:"MS Word is mainly used for?",
+options:[
+"Document preparation",
+"Video editing",
+"Gaming",
+"Cooking"
+],
+answer:0
+},
+{
+q:"Ctrl+C means?",
+options:["Copy","Cut","Close","Create"],
+answer:0
+},
+{
+q:"Ctrl+V means?",
+options:["View","Paste","Verify","Print"],
+answer:1
+},
+{
+q:"A clerk generally performs?",
+options:[
+"Office and administrative work",
+"Only medical work",
+"Only engineering",
+"Only police work"
+],
+answer:0
+}
+],
+
+GK:[
+{
+q:"Capital of India?",
+options:["Mumbai","New Delhi","Kolkata","Chennai"],
+answer:1
+},
+{
+q:"Who wrote the Indian National Anthem?",
+options:[
+"Rabindranath Tagore",
+"Mahatma Gandhi",
+"Subhas Chandra Bose",
+"Bankim Chandra Chattopadhyay"
+],
+answer:0
+},
+{
+q:"Largest planet?",
+options:["Earth","Mars","Jupiter","Venus"],
+answer:2
+},
+{
+q:"How many states are there in India?",
+options:["26","28","29","30"],
+answer:1
+},
+{
+q:"Currency of India?",
+options:["Dollar","Rupee","Yen","Pound"],
+answer:1
+}
+]
+
+};
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let currentExam="";
+let currentQuestion=0;
+let answers=[];
+let reviewQuestions=[];
+let timerSeconds=300;
+let timerInterval;
+
+
+/* =========================
+   PHOTO
+========================= */
+
+function uploadPhoto(event){
+
+let file=event.target.files[0];
+
+if(!file)return;
+
+let reader=new FileReader();
+
+reader.onload=function(e){
+
+document.getElementById("profileImage").src=e.target.result;
+
+localStorage.setItem(
+"profilePhoto",
+e.target.result
+);
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+
+window.onload=function(){
+
+let photo=localStorage.getItem("profilePhoto");
+
+if(photo){
+document.getElementById("profileImage").src=photo;
+}
+
+updateHomeStats();
+
+};
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function hideAll(){
+
+document.getElementById("homePage").style.display="none";
+
+document.getElementById("dashboard").style.display="none";
+
+document.getElementById("testPage").style.display="none";
+
+document.getElementById("resultPage").style.display="none";
+
+}
+
+
+function home(){
+
+hideAll();
+
+document.getElementById("homePage").style.display="block";
+
+window.scrollTo(0,0);
+
+updateHomeStats();
+
+}
+
+
+function showExams(){
+
+hideAll();
+
+document.getElementById("homePage").style.display="block";
+
+document.getElementById("examSection")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function showDashboard(){
+
+hideAll();
+
+document.getElementById("dashboard").style.display="block";
+
+showOverview();
+
+window.scrollTo(0,0);
+
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDark(){
+
+document.body.classList.toggle("dark");
+
+localStorage.setItem(
+"darkMode",
+document.body.classList.contains("dark")
+);
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchExam(){
+
+let value=
+document.getElementById("search")
+.value.toLowerCase();
+
+let cards=
+document.querySelectorAll(".exam-card");
+
+cards.forEach(card=>{
+
+let name=card.dataset.name;
+
+card.style.display=
+name.includes(value)
+?"block"
+:"none";
+
+});
+
+}
+
+
+/* =========================
+   START TEST
+========================= */
+
+function startTest(exam){
+
+currentExam=exam;
+
+currentQuestion=0;
+
+answers=new Array(
+questions[exam].length
+).fill(null);
+
+reviewQuestions=[];
+
+timerSeconds=300;
+
+hideAll();
+
+document.getElementById("testPage").style.display="block";
+
+document.getElementById("testTitle").innerText=
+exam+" Mock Test";
+
+startTimer();
+
+showQuestion();
+
+window.scrollTo(0,0);
+
+}
+
+
+/* =========================
+   QUESTION
+========================= */
+
+function showQuestion(){
+
+let q=
+questions[currentExam][currentQuestion];
+
+document.getElementById("questionNumber")
+.innerText=
+"Question "+(currentQuestion+1);
+
+document.getElementById("progress")
+.innerText=
+"Question "+
+(currentQuestion+1)+
+" of "+
+questions[currentExam].length;
+
+document.getElementById("question")
+.innerText=q.q;
+
+let html="";
+
+q.options.forEach((option,index)=>{
+
+let selected=
+answers[currentQuestion]===index
+?"selected"
+:"";
+
+html+=`
+
+<div class="option ${selected}"
+onclick="selectOption(${index})">
+
+${String.fromCharCode(65+index)}.
+${option}
+
+</div>
+
+`;
+
+});
+
+document.getElementById("options").innerHTML=html;
+
+}
+
+
+function selectOption(index){
+
+answers[currentQuestion]=index;
+
+showQuestion();
+
+}
+
+
+function nextQuestion(){
+
+if(currentQuestion<
+questions[currentExam].length-1){
+
+currentQuestion++;
+
+showQuestion();
+
+}else{
+
+submitTest();
+
+}
+
+}
+
+
+function previousQuestion(){
+
+if(currentQuestion>0){
+
+currentQuestion--;
+
+showQuestion();
+
+}
+
+}
+
+
+function markReview(){
+
+if(!reviewQuestions.includes(currentQuestion)){
+
+reviewQuestions.push(currentQuestion);
+
+alert("🚩 Question marked for review");
+
+}else{
+
+alert("Already marked for review");
+
+}
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer(){
+
+clearInterval(timerInterval);
+
+timerInterval=setInterval(()=>{
+
+timerSeconds--;
+
+let min=Math.floor(timerSeconds/60);
+
+let sec=timerSeconds%60;
+
+document.getElementById("timer").innerText=
+String(min).padStart(2,"0")+
+":"+
+String(sec).padStart(2,"0");
+
+if(timerSeconds<=0){
+
+clearInterval(timerInterval);
+
+submitTest();
+
+}
+
+},1000);
+
+}
+
+
+/* =========================
+   SUBMIT
+========================= */
+
+function submitTest(){
+
+clearInterval(timerInterval);
+
+let data=questions[currentExam];
+
+let correct=0;
+let wrong=0;
+let skipped=0;
+
+for(let i=0;i<data.length;i++){
+
+if(answers[i]===null){
+
+skipped++;
+
+}else if(
+answers[i]===data[i].answer
+){
+
+correct++;
+
+}else{
+
+wrong++;
+
+}
+
+}
+
+let total=data.length;
+
+let score=Math.round(
+(correct/total)*100
+);
+
+let attempted=correct+wrong;
+
+let accuracy=
+attempted===0
+?0
+:Math.round((correct/attempted)*100);
+
+
+/* SAVE RESULT */
+
+let history=
+JSON.parse(
+localStorage.getItem("history")||"[]"
+);
+
+history.push({
+
+exam:currentExam,
+score:score,
+correct:correct,
+wrong:wrong,
+skipped:skipped,
+accuracy:accuracy,
+date:new Date().toLocaleDateString()
+
+});
+
+localStorage.setItem(
+"history",
+JSON.stringify(history)
+);
+
+
+/* RESULT SCREEN */
+
+hideAll();
+
+document.getElementById("resultPage")
+.style.display="block";
+
+document.getElementById("finalScore")
+.innerText=score+"%";
+
+document.getElementById("correctAnswers")
+.innerText=correct;
+
+document.getElementById("wrongAnswers")
+.innerText=wrong;
+
+document.getElementById("skippedAnswers")
+.innerText=skipped;
+
+document.getElementById("resultAccuracy")
+.innerText=accuracy+"%";
+
+
+if(score>=80){
+
+document.getElementById("resultMessage")
+.innerText=
+"🔥 Excellent performance!";
+
+}else if(score>=60){
+
+document.getElementById("resultMessage")
+.innerText=
+"👏 Good performance! Keep improving.";
+
+}else{
+
+document.getElementById("resultMessage")
+.innerText=
+"💪 Keep practicing. You can improve.";
+
+}
+
+
+/* SELECTION */
+
+let chance=
+calculateSelectionChance();
+
+document.getElementById("selectionChance")
+.innerText=
+chance+"%";
+
+document.getElementById("selectionText")
+.innerText=
+getSelectionText(chance);
+
+updateHomeStats();
+
+window.scrollTo(0,0);
+
+}
+
+
+/* =========================
+   SELECTION CHANCE
+========================= */
+
+function calculateSelectionChance(){
+
+let history=
+JSON.parse(
+localStorage.getItem("history")||"[]"
+);
+
+if(history.length===0){
+
+return 0;
+
+}
+
+let lastTests=history.slice(-5);
+
+let average=
+lastTests.reduce(
+(sum,test)=>sum+test.score,0
+)/lastTests.length;
+
+let chance=Math.round(
+average*0.9
+);
+
+/*
+This is an estimate only.
+It is not the actual probability
+of selection.
+*/
+
+if(chance>95)chance=95;
+
+return chance;
+
+}
+
+
+function getSelectionText(chance){
+
+if(chance>=80){
+
+return "🟢 High preparation level. Keep your performance consistent.";
+
+}
+
+if(chance>=60){
+
+return "🟡 Good preparation, but improve your weak areas.";
+
+}
+
+if(chance>=40){
+
+return "🟠 Moderate preparation. More practice is recommended.";
+
+}
+
+return "🔴 Preparation needs improvement. Practice more mock tests.";
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function getHistory(){
+
+return JSON.parse(
+localStorage.getItem("history")||"[]"
+);
+
+}
+
+
+function calculateStats(){
+
+let history=getHistory();
+
+if(history.length===0){
+
+return {
+tests:0,
+best:0,
+avg:0,
+accuracy:0
+};
+
+}
+
+let best=Math.max(
+...history.map(x=>x.score)
+);
+
+let avg=Math.round(
+history.reduce(
+(s,x)=>s+x.score,0
+)/history.length
+);
+
+let accuracy=Math.round(
+history.reduce(
+(s,x)=>s+x.accuracy,0
+)/history.length
+);
+
+return {
+
+tests:history.length,
+best:best,
+avg:avg,
+accuracy:accuracy
+
+};
+
+}
+
+
+function updateHomeStats(){
+
+let s=calculateStats();
+
+document.getElementById("homeTests")
+.innerText=s.tests;
+
+document.getElementById("homeBest")
+.innerText=s.best+"%";
+
+document.getElementById("homeAverage")
+.innerText=s.avg+"%";
+
+document.getElementById("homeAccuracy")
+.innerText=s.accuracy+"%";
+
+}
+
+
+/* =========================
+   DASHBOARD OVERVIEW
+========================= */
+
+function showOverview(){
+
+let s=calculateStats();
+
+document.getElementById("dashboardContent")
+.innerHTML=`
+
+<div class="stats-grid">
+
+<div class="stat-card">
+<h2>${s.tests}</h2>
+<p>Tests Taken</p>
+</div>
+
+<div class="stat-card">
+<h2>${s.best}%</h2>
+<p>Best Score</p>
+</div>
+
+<div class="stat-card">
+<h2>${s.avg}%</h2>
+<p>Average Score</p>
+</div>
+
+<div class="stat-card">
+<h2>${s.accuracy}%</h2>
+<p>Average Accuracy</p>
+</div>
+
+</div>
+
+<br>
+
+<div class="panel">
+
+<h2>📈 Preparation Level</h2>
+
+<div class="progress-bar">
+
+<div class="progress-fill"
+style="width:${s.avg}%">
+</div>
+
+</div>
+
+<h3>${s.avg}% Prepared</h3>
+
+<p style="margin-top:10px;">
+Keep taking mock tests to improve your consistency.
+</p>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function showHistory(){
+
+let history=getHistory();
+
+let html=`
+
+<div class="panel">
+
+<h2>📜 Test History</h2>
+
+`;
+
+if(history.length===0){
+
+html+=`
+<p style="margin-top:20px;">
+No tests taken yet. Start your first mock test!
+</p>
+`;
+
+}else{
+
+html+=`
+
+<table class="history-table">
+
+<tr>
+<th>Exam</th>
+<th>Score</th>
+<th>Accuracy</th>
+<th>Date</th>
+</tr>
+
+`;
+
+history.slice().reverse().forEach(test=>{
+
+html+=`
+
+<tr>
+
+<td>${test.exam}</td>
+
+<td>${test.score}%</td>
+
+<td>${test.accuracy}%</td>
+
+<td>${test.date}</td>
+
+</tr>
+
+`;
+
+});
+
+html+=`</table>`;
+
+}
+
+html+=`</div>`;
+
+document.getElementById("dashboardContent")
+.innerHTML=html;
+
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+function showProgress(){
+
+let history=getHistory();
+
+if(history.length===0){
+
+document.getElementById("dashboardContent")
+.innerHTML=`
+
+<div class="panel">
+
+<h2>📈 Your Progress</h2>
+
+<p style="margin-top:15px;">
+Take some mock tests first to generate your progress.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+let latest=history.slice(-10);
+
+let html=`
+
+<div class="panel">
+
+<h2>📈 Recent Score Progress</h2>
+
+`;
+
+latest.forEach((test,index)=>{
+
+html+=`
+
+<div class="subject-row">
+
+<div class="subject-top">
+
+<span>
+Test ${index+1} - ${test.exam}
+</span>
+
+<b>${test.score}%</b>
+
+</div>
+
+<div class="progress-bar">
+
+<div class="progress-fill"
+style="width:${test.score}%">
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+html+=`</div>`;
+
+
+/* EXAM-WISE */
+
+let exams={};
+
+history.forEach(test=>{
+
+if(!exams[test.exam])
+exams[test.exam]=[];
+
+exams[test.exam].push(test.score);
+
+});
+
+
+html+=`
+
+<div class="panel">
+
+<h2>🎯 Exam-wise Progress</h2>
+
+`;
+
+Object.keys(exams).forEach(exam=>{
+
+let avg=Math.round(
+exams[exam].reduce(
+(a,b)=>a+b,0
+)/exams[exam].length
+);
+
+html+=`
+
+<div class="subject-row">
+
+<div class="subject-top">
+
+<span>${exam}</span>
+
+<b>${avg}%</b>
+
+</div>
+
+<div class="progress-bar">
+
+<div class="progress-fill"
+style="width:${avg}%">
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+html+=`</div>`;
+
+document.getElementById("dashboardContent")
+.innerHTML=html;
+
+}
+
+
+/* =========================
+   SELECTION
+========================= */
+
+function showSelection(){
+
+let history=getHistory();
+
+let chance=calculateSelectionChance();
+
+let stats=calculateStats();
+
+document.getElementById("dashboardContent")
+.innerHTML=`
+
+<div class="panel">
+
+<h2>🎯 Estimated Selection Chance</h2>
+
+<br>
+
+<div class="chance">
+
+<h2>${chance}%</h2>
+
+<p>
+
+This is an estimated preparation indicator
+based on your recent mock-test performance.
+
+</p>
+
+<br>
+
+<h3>
+${getSelectionText(chance)}
+</h3>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>What affects your preparation?</h2>
+
+<br>
+
+<p>📌 Mock test average: <b>${stats.avg}%</b></p>
+
+<br>
+
+<p>📌 Best score: <b>${stats.best}%</b></p>
+
+<br>
+
+<p>📌 Average accuracy: <b>${stats.accuracy}%</b></p>
+
+<br>
+
+<p>📌 Tests attempted: <b>${stats.tests}</b></p>
+
+</div>
+
+`;
+
+}
+
+
+</script>
+
+</body>
+</html>
